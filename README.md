@@ -77,7 +77,7 @@ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 After inputting the public IP address into the browser, this is the page that is viewable.
 
 
-
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-16%20at%208.52.39%20PM.png)
 
 
 
