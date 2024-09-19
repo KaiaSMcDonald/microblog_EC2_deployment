@@ -82,3 +82,75 @@ After inputting the public IP address into the browser, this is the page that is
 
 
 <p>The command above is used to run a Python web application with Gunicorn. It starts the Gunicorn server, specifies the binding address and the port for the server, specifies the number of worker processes that will manage requests, and specifies the application to be served by Gunicorn. Another important factor that is happening behind the scenes is logging, which includes monitoring and recording information that is being generated.</p>
+
+
+10. Once successful with the previous steps the Jenkinsfile will need to be modified to ensure the source code is able to complete all the stages from build to the deploy stage.
+
+a) Focuses on adding the commands used to create a virtual environment, install dependencies, setting variables, and setting up the databases to the build portion of the Jenkinsfile. 
+
+b) Focuses on the creation of the pytest which is used to run a unit test on the application source code. 
+
+
+
+The breakdown of the pytest created as follows:
+First is to import the pytest to allow unit tests, fixtures, and other things to be written <br>
+
+Next part is importing the create_app() function, which is responsible for creating and configuring an instance of the Flask application <br>
+
+The pytest.fixture is a function that provides a consistent environment for tests 
+*for example, it will create an environment for creating a test client <br>
+
+Following that would be the app. config[‘TESTING’] = True, which sets the testing mode on for a Flask application <br>
+
+In addition to the following components of the code, the purpose of the def test_config(client) is to verify the test client creation and configuration. <br>
+
+Lastly, the ‘assert client’ ensures that the test client was properly created and can be used to simulate HTTP requests.
+
+c) Finally is the deploy stage that includes commands necessary to deploy the application and make it accessible to the internet.
+
+There is also a clean and 'WASP FS SCAN' stage present in the Jenkinsfile.
+
+<p>The role of the clean stage is to remove any artifacts or files that may interfere with the current build process. The WASP FS SCAN is a security scan that checks for any vulnerabilities in the application code or dependencies.</p>
+
+11. Installation of the OSWAP Dependency check plug in
+This plug in can be found in the available plug in section on Jenkins
+This plug in must also be configured in ways that include ensuring that it is set to be installed automatically.
+
+<p> The main purpose of this particular plug in is to assist in identifying popular vulnerabilities in project dependencies. Some of the key features of the OWASP Dependency Check is Vulnerability Detection and Report Generation. Which means it able to generate detailed reports about which dependencies have vulnerabilities. While also comparing libraries to vulnerability databases to identify anything alarming.</p>
+
+12. Creation of the multibranch pipeline
+    The pipeline will struggle to complete because specifically at the deploy the stage. In order to solve this issue a series of commands will be needed such as:
+    
+`sudo nano /etc/systemd/system/microblog.service`
+
+This command is used to open and create a systemd service file called microblog.service 
+
+```
+[Unit]
+Description=gunicorn service to deploy microblog
+After=network.target
+
+[Service]
+User=jenkins
+Group=jenkins
+WorkingDirectory=/var/lib/jenkins/workspace/workload_3_main/
+Environment="PATH=/var/lib/jenkins/workspace/workload_3_main/venv/bin"
+ExecStart=/var/lib/jenkins/workspace/workload_3_main/venv/bin/gunicorn -w 4 -b :5000 microblog:app
+
+[Install]
+WantedBy=multi-user.target
+```
+The code placed above is the contents of the systemd service file which is used to define how the microblog application should begin, stop, restart, and be managed as a service on the server.
+
+Following this is the sudo systemctl daemon-reload command which tells systemd to reload the configuration files
+
+Lastly is starting the microblog service by using the sudo systemctl start microblog command.
+
+These commands collectively will lead to the build completing all the stages successsfully. 
+
+13. Installation of Prometheus and Grafana for Monitoring resources
+
+
+
+
+
