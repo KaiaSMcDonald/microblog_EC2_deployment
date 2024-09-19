@@ -215,4 +215,4 @@ Optimization suggestions for this infrastructure
 <p>A way I would optimize this infrastructure is to implement automation mainly to tackle changes and updates that may alter the progression of the stages essential in deploying the application. The reason I am opting for automation is because I would like to reduce the likelihood of human error interfering with the development and deployment of the application. A tool that I would use is Anisble, which can automate task, reduce errors, and manage the infrastructure. </p>
 
 ## Conclusion
-
+<p> This project provides a great opportunity to discover the backbone pieces such configuration files and othe components that help self provisioned resources successfully deploy an application. It also highlights the insights you can gain when using monitoring tools like Grafana and Prometheus. In addition to unveiling how that information can help drive decisions to improve a business or service for customers.</p>
