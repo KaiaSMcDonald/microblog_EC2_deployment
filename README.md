@@ -92,7 +92,7 @@ a) Focuses on adding the commands used to create a virtual environment, install 
 
 b) Focuses on the creation of the pytest which is used to run a unit test on the application source code. 
 
-
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-18%20at%2010.20.31%20PM.png)
 
 The breakdown of the pytest created as follows:
 First is to import the pytest to allow unit tests, fixtures, and other things to be written <br>
