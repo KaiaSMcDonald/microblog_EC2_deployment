@@ -173,6 +173,13 @@ The node exporter must be installed on the Jenkins EC2 because that is where the
 
 This picture displays data on the cpu usage of the application
 
+
+
+## System Diagram Design
+
+
+
+
 ## Issues and Troubleshooting
 
 
