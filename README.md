@@ -122,7 +122,7 @@ This plug in must also be configured in ways that include ensuring that it is se
 
 <p> The main purpose of this particular plug in is to assist in identifying popular vulnerabilities in project dependencies. Some of the key features of the OWASP Dependency Check is Vulnerability Detection and Report Generation. Which means it able to generate detailed reports about which dependencies have vulnerabilities. While also comparing libraries to vulnerability databases to identify anything alarming.</p>
 
-12. Creation of the multibranch pipeline
+12. Creation of the multibranch pipeline <br>
     The pipeline will struggle to complete because specifically at the deploy the stage. In order to solve this issue a series of commands will be needed such as:
     
 `sudo nano /etc/systemd/system/microblog.service`
@@ -194,6 +194,9 @@ The node exporter must be installed on the Jenkins EC2 because that is where the
 
 ![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-18%20at%207.39.21%20PM.png)
 <p align="center"> This picture displays the error that I received when testing the pytest created</p>
+
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-18%20at%201.47.33%20PM.png)
+<p align="center"> This picture displays the completion of the testing for the pytest before going into the pipeline </p>
 
 ## Optimization 
 There are many advantages of provisioning your own resources compared to using a managed service like Elastic Beanstalk 
