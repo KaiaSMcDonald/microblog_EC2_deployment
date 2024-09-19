@@ -182,4 +182,28 @@ This picture displays data on the cpu usage of the application
 
 ## Issues and Troubleshooting
 
+<p>An issue I encountered specifically related to the pytest was testing it before moving to the CI/CD pipeline. Every attempt to test it would result in an error saying that the module used in the code could not be found. Despite constant changes to the module's name, the error continued to appear. The solution to this problem was creating a pytest.ini file.</p>
+
+<p>The purpose of pytest.ini  is to be a configuration which helps pytest locate both your application code and tests easily. Therefore the when the test period begins for the pytest it will complete because the location of the application code is defined.</p>
+
+
+
+
+## Optimization 
+There are many advantages of provisioning your own resources compared to using a managed service like Elastic Beanstalk 
+1. Cost Optimization: By provisioning your own resources you can alter the resources to mirror the actual usage of the resources for the business. This essentially reduces cost tremendously. <br>
+
+2.Security Control: Provisioning your own resources gives you full control over security configurations, patching, and compliance. <br>
+
+3. Greater control: There is full control over configuration, scaling, and resource allocation.
+
+Could this infrastructure be considered a good system
+
+<p> A good system generally has characteristics like scalability, reliability, security, and cost efficiency. The use of self-provisioning covers all these things. Specifically, with scalability self-provisioning resources allow the implementation of custom scaling policies, meaning an increase or decrease in resources can be made based on the demand of the company. In regards to reliability, failover strategies can be customized to improve uptime and reduce latency. These two examples showcase some reasons, amongst many others, why self-provisioning resources can make a good system. </p>
+
+Optimization suggestions for this infrastructure 
+
+<p>A way I would optimize this infrastructure is to implement automation mainly to tackle changes and updates that may alter the progression of the stages essential in deploying the application. The reason I am opting for automation is because I would like to reduce the likelihood of human error interfering with the development and deployment of the application. A tool that I would use is Anisble, which can automate task, reduce errors, and manage the infrastructure. </p>
+
+## Conclusion
 
