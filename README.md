@@ -152,6 +152,8 @@ Lastly is starting the microblog service by using the sudo systemctl start micro
 
 These commands collectively will lead to the build completing all the stages successsfully. 
 
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-19%20at%2012.34.01%20AM.png)
+
 13. Installation of Prometheus and Grafana for Monitoring resources
 
 The following commands can be used to successfully install prometheus:
