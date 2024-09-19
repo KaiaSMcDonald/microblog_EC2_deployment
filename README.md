@@ -184,7 +184,7 @@ The node exporter must be installed on the Jenkins EC2 because that is where the
 ## System Diagram Design
 
 
-
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-19%20at%204.38.41%20PM.png)
 
 ## Issues and Troubleshooting
 
