@@ -88,6 +88,8 @@ After inputting the public IP address into the browser, this is the page that is
 
 a) Focuses on adding the commands used to create a virtual environment, install dependencies, setting variables, and setting up the databases to the build portion of the Jenkinsfile. 
 
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-18%20at%201.48.09%20PM.png)
+
 b) Focuses on the creation of the pytest which is used to run a unit test on the application source code. 
 
 
