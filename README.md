@@ -150,7 +150,29 @@ These commands collectively will lead to the build completing all the stages suc
 
 13. Installation of Prometheus and Grafana for Monitoring resources
 
+The following commands can be used to successfully install prometheus:
+```
+nano install promgraf.sh
+chmod +x promgraf.sh
+sudo ./promgraf.sh
+```
+Key point- Once the promgraf file is created the contents of that file should be a script that includes instructions for the installation of prometheus and grafana
+
+The node exporter is another key components linked to Grafana and Prometheus because it collects the metrics needed from the application which is information both of those tools rely on. 
+
+The following commands will successfully install the node exporter:
+```
+nano nodex.sh
+chmod +x nodex.sh
+sudo ./nodex.sh
+```
+
+The node exporter must be installed on the Jenkins EC2 because that is where the application is located and that is what is being monitored.
 
 
+
+This picture displays data on the cpu usage of the application
+
+## Issues and Troubleshooting
 
 
