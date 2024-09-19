@@ -1,109 +1,84 @@
-# Kura Labs Cohort 5- Deployment Workload 3
+# Deploying an Application and Monitoring Resources <br>
+## Purpose <br>
+<p>This project aims to help a social media company deploy their application without using managed services like Elastic Beanstalk, which can be a costly service to use depending on the web site traffic that the servers receive. In addition to deploying the application without managed services, the resources used should be monitored to ensure the servers don’t experience any failures. 
 
+The steps below showcase what was done to deploy the application and monitor the resources used.
+</p>
 
----
+## Steps <br>
+1. To begin clone the repository to a personal repository on my Github account 
+This step will allow customization and contributions to be made without altering the original repository.
 
+2. Next, Create an Ubuntu EC2 instance that is specifically set to be a t3.medium. On this EC2, Jenkins will be installed using the following steps:
+```
+$sudo apt update && sudo apt install fontconfig openjdk-17-jre software-properties-common && sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt install python3.7 python3.7-venv
+$sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+$echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+    $sudo apt-get update
+    $sudo apt-get install jenkins
+    $sudo systemctl start jenkins
+    $sudo systemctl status jenkins
 
+```
 
-## Monitoring Application and Server Resources
+3. Following that the server needs to be configured by installing 'python3.9', 'python3.9-venv', 'python3-pip', and 'nginx'
+This can be accomplished by using the following commands:
+```
+Sudo apt install python3.9
+Sudo apt install python3.9-venv
+Sudo apt install python3-pip 
+Sudo apt install nginx
+```
 
-Welcome to Deployment Workload 3! The past 2 Workloads have utilized AWS managed services to provision the infrastructure for our application.  Let's start shifting to infrastucture built by us and take a deeper dive into what goes into deploying an application.
-
-Be sure to document each step in the process and explain WHY each step is important to the pipeline.
-
-## Instructions
-
-1. Clone this repo to your GitHub account. IMPORTANT: Make sure that the repository name is "microblog_EC2_deployment"
-
-2. Create an Ubuntu EC2 instance (t3.micro) named "Jenkins" and install Jenkins onto it (are you still doing this manually?).  Be sure to configure the security group to allow for SSH and HTTP traffic in addition to the ports required for Jenkins and any other services needed (Security Groups can always be modified afterward)
-
-3. Configure the server by installing 'python3.9',  'python3.9-venv', 'python3-pip', and 'nginx'. (Hint: There are several ways to install a previous python version. One method was used in Workloads 1 and 2)
-
-4. Clone your GH repository to the server, cd into the directory, create and activate a python virtual environment with: 
-
+4. Afterwards, go into the personal repository created in the beginning stages and create and activate a python virtual environment using the following commands:
 ```
 $python3.9 -m venv venv
 $source venv/bin/activate
-```
-
-5. While in the python virtual environment, install the application dependencies and other packages by running:
 
 ```
-$pip install -r requirements.txt
-$pip install gunicorn pymysql cryptography
-```
 
-6. Set the ENVIRONMENTAL Variable:
+5. Next, while in the python environment, install the application dependencies and other packages by running these commands:
+   ```
+    $pip install -r requirements.txt
+    $pip install gunicorn pymysql cryptography
 
+   ```
+<p> The dependencies are essential because they help additional functionality that may not be included in the core framework. Dependencies also speed up the development process and can assist in managing complex applications by implementing up-to-date libraries.</p>
+
+6. Following that is setting the environmental variable by using the following command:
 ```
 FLASK_APP=microblog.py
 ```
-Question: What is this command doing?
+<p>Flask is a common web framework for Python. When using Flask, it is important to note that Flask needs to know which file it can utilize as the application's entry point. So, specifically, with the command above, Flask will use microblg.py to start the application. </p>
 
-7. Run the following commands: 
+7. Afterwards, run the following commands:
+   ```
+   $flask translate compile
+   $flask db upgrade
+   ```
+ <p>The first command is converting .po files into .mo files, ensuring that the latest translations are accessible in the application.<br>
+The second application updates the database schema to match the latest version defined in migration scripts.
+</p>
 
+8. Next, Edit the NginX configuration file at "/etc/nginx/sites-enabled/default" so that "location" reads as below:
 ```
-$flask translate compile
-$flask db upgrade
-```
-
-8. Edit the NginX configuration file at "/etc/nginx/sites-enabled/default" so that "location" reads as below.
-
-```
-location / {
+   location / {
 proxy_pass http://127.0.0.1:5000;
 proxy_set_header Host $host;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 }
 ```
-Question: What is this config file/NginX responsible for?
+<p>By adding this specific block of code into the configured Nginx file will proxy requests and direct traffic/requests to the backend server. The location/ and proxy_pass portion of the file indicate that the nginx file handles all requests to the root path and then forwards requests to a backend server.</p>
 
-9. Run the following command and then put the servers public IP address into the browser address bar
+9. Following that, Run the following command and then put the server's public IP address into the browser address bar.
+   ```
+   gunicorn -b :5000 -w 4 microblog:app
+   ```
+After inputting the public IP address into the browser, this is the page that is viewable.
 
-```
-gunicorn -b :5000 -w 4 microblog:app
-```
-Question: What is this command doing? You should be able to see the application running in the browser but what is happening "behind the scenes" when the IP address is put into the browser address bar?
 
-10. If all of the above works, stop the application by pressing ctrl+c.  Now it's time to automate the pipeline.  Modify the Jenkinsfile and fill in the commands for the build and deploy stages.
 
-  a. The build stage should include all of the commands required to prepare the environment for the application.  This includes creating the virtual environment and installing all the dependencies, setting variables, and setting up the databases.
 
-  b. The test stage will run pytest.  Create a python script called test_app.py to run a unit test of the application source code. IMPORTANT: Put the script in a directory called "tests/unit/" of the GitHub repository. Note: The complexity of the script is up to you.  Work within your limits.  (Hint: If you don't know where to start, try testing the homepage or log in page.  Want to challenge yourself with something more complicated? Sky's the limit!)
 
-  c. The deploy stage will run the commands required to deploy the application so that it is available to the internet. 
 
-  d. There is also a 'clean' and an 'WASP FS SCAN' stage.  What are these for?
-  
-11. In Jenkins, install the "OWASP Dependency-Check" plug-in
-
-    a. Navigate to "Manage Jenkins" > "Plugins" > "Available plugins" > Search and install
-
- 	b. Then configure it by navigating to "Manage Jenkins" > "Tools" > "Add Dependency-Check > Name: "DP-Check" > check "install automatically" > Add Installer: "Install from github.com"
-
-Question: What is this plugin for?  What is it doing?  When does it do it?  Why is it important?
-
-12. Create a MultiBranch Pipeline and run the build.  IMPORTANT: Make sure the name of the pipeline is: "workload_3".
-
-    Note: Did the pipeline complete? Is the application running?
-
-    Hint: if the pipeline stage is unable to complete because the process is running, perhaps the process should be run in the BACKGROUND (daemon).
-    
-    Hint pt 2: NOW does the pipeline complete? Is the application running?  If not: What happened to that RUNNING PROCESS after the deploy STAGE COMPLETES? (stayAlive)
-
-14. After the application has successfully deployed, create another EC2 (t3.micro) called "Monitoring".  Install Prometheus and Grafana and configure it to monitor the activity on the server running the application. 
-
-15. Document! All projects have documentation so that others can read and understand what was done and how it was done. Create a README.md file in your repository that describes:
-
-	  a. The "PURPOSE" of the Workload,
-
-  	b. The "STEPS" taken (and why each was necessary/important),
-      Question: Were steps 4-9 absolutely necessary for the CICD pipeline? Why or why not?
-    
-  	c. A "SYSTEM DESIGN DIAGRAM" that is created in draw.io (IMPORTANT: Save the diagram as "Diagram.jpg" and upload it to the root directory of the GitHub repo.),
-
-	  d. "ISSUES/TROUBLESHOOTING" that may have occured,
-
-  	e. An "OPTIMIZATION" section for that answers the question: What are the advantages of provisioning ones own resources over using a managed service like Elastic Beanstalk?  Could the infrastructure created in this workload be considered that of a "good system"?  Why or why not?  How would you optimize this infrastructure to address these issues?
-
-    f. A "CONCLUSION" statement as well as any other sections you feel like you want to include.
+<p>The command above is used to run a Python web application with Gunicorn. It starts the Gunicorn server, specifies the binding address and the port for the server, specifies the number of worker processes that will manage requests, and specifies the application to be served by Gunicorn. Another important factor that is happening behind the scenes is logging, which includes monitoring and recording information that is being generated.</p>
