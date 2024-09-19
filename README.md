@@ -190,10 +190,10 @@ The node exporter must be installed on the Jenkins EC2 because that is where the
 
 <p>An issue I encountered specifically related to the pytest was testing it before moving to the CI/CD pipeline. Every attempt to test it would result in an error saying that the module used in the code could not be found. Despite constant changes to the module's name, the error continued to appear. The solution to this problem was creating a pytest.ini file.</p>
 
-<p>The purpose of pytest.ini  is to be a configuration which helps pytest locate both your application code and tests easily. Therefore the when the test period begins for the pytest it will complete because the location of the application code is defined.</p>
+<p>The purpose of pytest.ini  is to be a configuration which helps pytest locate both your application code and tests easily. Therefore the when the test session begins for the pytest it will complete because the location of the application code is defined.</p>
 
-
-
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-18%20at%207.39.21%20PM.png)
+<p align="center"> This picture displays the error that I received when testing the pytest created</p>
 
 ## Optimization 
 There are many advantages of provisioning your own resources compared to using a managed service like Elastic Beanstalk 
