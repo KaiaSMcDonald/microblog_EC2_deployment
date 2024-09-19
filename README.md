@@ -110,6 +110,8 @@ Lastly, the ‘assert client’ ensures that the test client was properly create
 
 c) Finally is the deploy stage that includes commands necessary to deploy the application and make it accessible to the internet.
 
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-18%20at%201.48.30%20PM.png)
+
 There is also a clean and 'WASP FS SCAN' stage present in the Jenkinsfile.
 
 <p>The role of the clean stage is to remove any artifacts or files that may interfere with the current build process. The WASP FS SCAN is a security scan that checks for any vulnerabilities in the application code or dependencies.</p>
