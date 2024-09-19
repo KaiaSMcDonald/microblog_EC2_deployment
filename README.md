@@ -175,9 +175,9 @@ sudo ./nodex.sh
 
 The node exporter must be installed on the Jenkins EC2 because that is where the application is located and that is what is being monitored.
 
+![Screenshot 09-19-24](https://github.com/KaiaSMcDonald/microblog_EC2_deployment/blob/main/Screenshot%202024-09-19%20at%202.21.28%20AM.png)
 
-
-This picture displays data on the cpu usage of the application
+<p align="center">This picture displays data on the cpu usage of the application</p>
 
 
 
